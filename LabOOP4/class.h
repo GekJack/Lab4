@@ -12,9 +12,18 @@ public:
     String();
     String(T value, int len);
     template <typename U>
-    String( String<U>& other);
-    String(const String&& other);
+    String(const String<U>& other);
+    String(const String<T>&& other);
     ~String();
+    void OutPut() const;
+
+    int GetLen() const;
+    T GetCurrentSymbol(int pos) const;
+
+    //template <typename U>
+    //U ConvertStringType(int new_len);
+    bool isEmpty() const;
+
     void OutPut();
     bool isEmpty();
     int GetLen() const;

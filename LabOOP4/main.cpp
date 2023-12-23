@@ -9,5 +9,8 @@ int main(){
     String<int> c(int(), 12);
     c += a;
     c.OutPut();
+
+    
+    
     return 0;
 }

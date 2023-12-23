@@ -20,7 +20,7 @@ String<T> :: String(T value, int len) { // Конструктор одного значення
 }
 template <typename T>
 template <typename U>
-String<T> :: String( String<U>& other){ // Конструктор копирования
+String<T> :: String(const String<U>& other){ // Конструктор копирования
 	this->mass_char = new T[other.GetLen()];
 	this->len = other.GetLen();
 	for (int i = 0; i < this->len; i++) {
@@ -28,7 +28,7 @@ String<T> :: String( String<U>& other){ // Конструктор копирования
 	}
 }
 template <typename T>
-String<T> ::String(const String&& other) : //Конструктор переміщення
+String<T> ::String(const String<T>&& other) : //Конструктор переміщення
 	mass_char(other.mass_char), len(other.len)
 {
 	other.len = 0;
@@ -42,7 +42,7 @@ String<T> :: ~String() { // Деструктор
 	this->len = 0;
 }
 template <typename T>
-void String<T> ::OutPut() { // Вивід
+void String<T> :: OutPut() const{ // Вивід
 	if (this->isEmpty()) {
 		cout << "The string is empty";
 	}
@@ -54,7 +54,7 @@ void String<T> ::OutPut() { // Вивід
 	}
 }
 template <typename T> 
-T String<T> ::GetCurrentSymbol(int pos) const { // Отримання символа за його позицією в строці
+T String<T> :: GetCurrentSymbol(int pos) const { // Отримання символа за його позицією в строці
 	return this->mass_char[pos];
 }
 template <typename T>
@@ -62,7 +62,7 @@ int String<T> :: GetLen() const { // Отримання довжини строки
 	return this->len;
 }
 template <typename T>
-bool String<T> :: isEmpty() { // Перевірка рядка на пустоту
+bool String<T> :: isEmpty() const{
 	bool status = true;
 	for (int i = 0; i < this->len; i++) {
 		if (this->mass_char[i] != T()) {
@@ -97,4 +97,22 @@ void String<T> ::resize(int new_len) {
 	}
 	this->len = new_len;
 }
+
+/*template<typename T>
+template<typename U>
+U String<T> :: ConvertStringType(int new_len)
+{
+	if (this->len == new_len) {
+		String<U> New_String('1', new_len);
+		for (int i = 0; i < this->len; i++) {
+			New_String.mass_char[i] = static_cast<U>(this->mass_char[i]);
+		}
+		return New_String;
+	}
+	else {
+		cout << "error new_len != other_len" << endl;
+	}
+}*/
+
+
 #endif //class_cpp
