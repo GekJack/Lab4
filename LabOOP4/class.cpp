@@ -72,4 +72,6 @@ U String<T> :: ConvertStringType(int new_len)
 		cout << "error new_len != other_len" << endl;
 	}
 }*/
+
+
 #endif //class_cpp
