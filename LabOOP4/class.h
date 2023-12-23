@@ -11,13 +11,16 @@ public:
     String();
     String(T value, int len);
     template <typename U>
-    String( String<U>& other);
-    String(const String&& other);
+    String(const String<U>& other);
+    String(const String<T>&& other);
     ~String();
-    void OutPut();
+    void OutPut() const;
 
-    int GetLen();
-    T GetCurrentSymbol(int pos);
+    int GetLen() const;
+    T GetCurrentSymbol(int pos) const;
+
+    //template <typename U>
+    //U ConvertStringType(int new_len);
 };
 #include "class.cpp"
 #endif //class_h

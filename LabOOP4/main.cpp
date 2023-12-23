@@ -8,5 +8,8 @@ int main(){
     b.OutPut();
     String<char> c(b);
     c.OutPut();
+
+    
+    
     return 0;
 }
