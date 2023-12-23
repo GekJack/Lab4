@@ -62,7 +62,7 @@ int String<T> :: GetLen() { // Отримання довжини строки
 	return this->len;
 }
 template <typename T>
-bool String<T> ::isEmpty() {
+bool String<T> ::isEmpty() { // Перевірка рядка на пустоту
 	bool status = true;
 	for (int i = 0; i < this->len; i++) {
 		if (this->mass_char[i] != T()) {
