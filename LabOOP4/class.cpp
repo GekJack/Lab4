@@ -28,7 +28,7 @@ String<T> :: String(const String<U>& other){ // Конструктор копирования
 	}
 }
 template <typename T>
-String<T> ::String(const String<T>&& other) : //Конструктор переміщення
+String<T> :: String(const String<T>&& other) : //Конструктор переміщення
 	mass_char(other.mass_char), len(other.len)
 {
 	other.len = 0;
@@ -88,7 +88,7 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 }
 
 template <typename T>
-void String<T> ::resize(int new_len) {
+void String<T> :: resize(int new_len) {
 	T* temp_array = new T[new_len];
 	for (int i = 0; i < this->len; i++) {
 		temp_array[i] = this->mass_char[i];
