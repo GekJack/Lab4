@@ -43,10 +43,15 @@ String<T> :: ~String() { // Деструктор
 }
 template <typename T>
 void String<T> ::OutPut() { // Вивід
-	for (int i = 0; i < this->len; i++) {
-		cout << mass_char[i];
+	if (this->isEmpty()) {
+		cout << "The string is empty";
 	}
-	cout << endl;
+	else {
+		for (int i = 0; i < this->len; i++) {
+			cout << mass_char[i];
+		}
+		cout << endl;
+	}
 }
 template <typename T> 
 T String<T> ::GetCurrentSymbol(int pos) { // Отримання символа за його позицією в строці
@@ -56,6 +61,15 @@ template <typename T>
 int String<T> :: GetLen() { // Отримання довжини строки
 	return this->len;
 }
-
-
+template <typename T>
+bool String<T> ::isEmpty() {
+	bool status = true;
+	for (int i = 0; i < this->len; i++) {
+		if (this->mass_char[i] != T()) {
+			status = false;
+			break;
+		}
+	}
+	return status;
+}
 #endif //class_cpp

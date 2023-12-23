@@ -6,7 +6,7 @@ int main(){
     a.OutPut();
     String<int> b(102, 5);
     b.OutPut();
-    String<char> c(b);
+    String<int> c(int(), 12);
     c.OutPut();
     return 0;
 }

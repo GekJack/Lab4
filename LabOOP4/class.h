@@ -15,7 +15,7 @@ public:
     String(const String&& other);
     ~String();
     void OutPut();
-
+    bool isEmpty();
     int GetLen();
     T GetCurrentSymbol(int pos);
 };
