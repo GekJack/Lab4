@@ -42,7 +42,7 @@ String<T> :: ~String() { // Деструктор
 	this->len = 0;
 }
 template <typename T>
-void String<T> ::OutPut() const { // Вивід
+void String<T> :: OutPut() const { // Вивід
 	for (int i = 0; i < this->len; i++) {
 		cout << mass_char[i];
 	}
