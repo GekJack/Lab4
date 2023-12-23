@@ -7,6 +7,7 @@ class String {
 private:
     T* mass_char;
     int len;
+    void resize(int new_len);
 public:
     String();
     String(T value, int len);
@@ -16,8 +17,11 @@ public:
     ~String();
     void OutPut();
     bool isEmpty();
-    int GetLen();
-    T GetCurrentSymbol(int pos);
+    int GetLen() const;
+    T GetCurrentSymbol(int pos) const;
+
+    template <typename U>
+    String<T>& operator+=(const String<U>& other);
 };
 #include "class.cpp"
 #endif //class_h
