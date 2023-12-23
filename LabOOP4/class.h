@@ -8,6 +8,7 @@ private:
     int len;
 public:
     String();
+    String(T value, int len);
     ~String();
 
 };
