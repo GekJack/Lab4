@@ -18,7 +18,7 @@ String<T> :: ~String() { // Деструктор
 	this->len = 0;
 }
 template <typename T>
-String<T>::String(T value, int len) { // Конструктор одного значення
+String<T> :: String(T value, int len) { // Конструктор одного значення
 	this->mass_char = new T[len];
 	for (int i = 0; i < len; i++) {
 		this->mass_char[i] = value;
