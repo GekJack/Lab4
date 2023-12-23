@@ -33,4 +33,5 @@ String<T> :: String() {
 		mass_char[i] = 'a';
 	}
 }
+//asdasdasdasdasd
 #endif //class_cpp
