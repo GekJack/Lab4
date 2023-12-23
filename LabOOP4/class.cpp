@@ -18,7 +18,7 @@ String<T> :: ~String() {
 	this->len = 0;
 }
 template <typename T>
-String<T>::String(T value, int len) {
+String<T> :: String(T value, int len) {
 	this->mass_char = new T[len];
 	for (int i = 0; i < len; i++) {
 		this->mass_char[i] = value;
