@@ -2,13 +2,13 @@
 #include "class.h"
 
 int main(){
-    String<int> a(10, 5);
+    String<int> a(56, 5);
     a.OutPut();
-    String<int> b(102, 5);
+    String<char> b('f', 5);
     b.OutPut();
     String<int> c(int(), 12);
-    c += a;
-    c.OutPut();
+    b += a;
+    b.OutPut();
 
 
     

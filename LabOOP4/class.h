@@ -15,18 +15,12 @@ public:
     String(const String<U>& other);
     String(const String<T>&& other);
     ~String();
-    void OutPut() const;
 
-    int GetLen() const;
-    T GetCurrentSymbol(int pos) const;
-    
-    bool isEmpty() const;
     //template <typename U>
     //U ConvertStringType(int new_len);
 
     void Clear_String();
     
-
     void OutPut() const;
     bool isEmpty() const ;
     int GetLen() const;
