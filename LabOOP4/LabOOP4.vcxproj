@@ -146,7 +146,7 @@
     <ClInclude Include="class.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\midas\Downloads\ЛР-4.docx" />
+    <None Include="..\ЛР-4.docx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
