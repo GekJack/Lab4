@@ -25,6 +25,8 @@ String<T>::String(T value, int len) {
 	}
 }
 
+
+//
 template <typename T>
 String<T> :: String() {
 	this->len = 10;
