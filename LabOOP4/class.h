@@ -9,7 +9,6 @@ private:
 public:
     String();
     ~String();
-
 };
 #include "class.cpp"
 #endif //class_h
