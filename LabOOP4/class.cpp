@@ -25,8 +25,6 @@ String<T>::String(T value, int len) {
 	}
 }
 
-
-//
 template <typename T>
 String<T> :: String() {
 	this->len = 10;
@@ -35,5 +33,4 @@ String<T> :: String() {
 		mass_char[i] = 'a';
 	}
 }
-//asdasdasdasdasd
 #endif //class_cpp
