@@ -8,6 +8,8 @@ private:
     int len;
 public:
     String();
+
+    String(const String&& other);
     ~String();
 
 };
