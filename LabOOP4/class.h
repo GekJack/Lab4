@@ -13,8 +13,9 @@ public:
     String(T value, int len);
     String(const String&& other);
     template <typename U>
-    String(const String<U>& other);
+    String( String<U>& other);
     ~String();
+    void OutPut();
 };
 #include "class.cpp"
 #endif //class_h

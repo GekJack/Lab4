@@ -19,6 +19,7 @@ String<T> :: ~String() { // Деструктор
 }
 template <typename T>
 String<T> :: String(T value, int len) { // Конструктор одного значення
+	this->len = len;
 	this->mass_char = new T[len];
 	for (int i = 0; i < len; i++) {
 		this->mass_char[i] = value;
@@ -26,10 +27,11 @@ String<T> :: String(T value, int len) { // Конструктор одного значення
 }
 template <typename T>
 template <typename U>
-String<T> :: String(const String<U>& other){ // Конструктор копирования
+String<T> :: String( String<U>& other){ // Конструктор копирования
 	this->mass_char = new T[other.GetLen()];
+	this->len = other.GetLen();
 	for (int i = 0; i < this->len; i++) {
-		this->mass_char[i] = static_cast<T>(other.GetCurrentSymbol());
+		this->mass_char[i] = static_cast<T>(other.GetCurrentSymbol(i));
 	}
 }
 template <typename T>
@@ -47,5 +49,12 @@ T String<T> ::GetCurrentSymbol(int pos) { // Отримання символа за його позицією 
 template <typename T>
 int String<T> :: GetLen() { // Отримання довжини строки
 	return this->len;
+}
+template <typename T>
+void String<T> :: OutPut() { // Вивід
+	for (int i = 0; i < this->len; i++) {
+		std::cout << mass_char[i];
+	}
+	std::cout << std::endl;
 }
 #endif //class_cpp
