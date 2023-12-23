@@ -3,7 +3,7 @@
 #include "class.h"
 
 template <typename T>
-String<T> ::String() { // Конструктор за замовченням
+String<T> :: String() { // Конструктор за замовченням
 	this->len = 10;
 	this->mass_char = new T[len];
 	for (int i = 0; i < this->len; i++) {
@@ -38,6 +38,7 @@ template <typename T>
 String<T> :: ~String() { // Деструктор
 	if (this->mass_char) {
 		delete[] this->mass_char;
+		this->mass_char = nullptr;
 	}
 	this->len = 0;
 }
@@ -64,10 +65,12 @@ int String<T> :: GetLen() const { // Отримання довжини строки
 template <typename T>
 bool String<T> :: isEmpty() const{
 	bool status = true;
-	for (int i = 0; i < this->len; i++) {
-		if (this->mass_char[i] != T()) {
-			status = false;
-			break;
+	if (this->mass_char) {
+		for (int i = 0; i < this->len; i++) {
+			if (this->mass_char[i] != T()) {
+				status = false;
+				break;
+			}
 		}
 	}
 	return status;
@@ -88,6 +91,12 @@ U String<T> :: ConvertStringType(int new_len)
 		cout << "error new_len != other_len" << endl;
 	}
 }*/
-
+template<typename T>
+void String<T> :: Clear_String() {
+	if (this->mass_char) {
+		delete[] this->mass_char;
+		this->mass_char = nullptr;
+	}
+}
 
 #endif //class_cpp

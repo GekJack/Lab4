@@ -18,10 +18,13 @@ public:
 
     int GetLen() const;
     T GetCurrentSymbol(int pos) const;
-
+    
+    bool isEmpty() const;
     //template <typename U>
     //U ConvertStringType(int new_len);
-    bool isEmpty() const;
+
+    void Clear_String();
+    
 
 };
 #include "class.cpp"
