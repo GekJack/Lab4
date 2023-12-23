@@ -75,6 +75,31 @@ bool String<T> :: isEmpty() const{
 	}
 	return status;
 }
+template <typename T>
+template <typename U>
+String<T>& String<T> :: operator+=(const String<U>& other) {
+	int new_len = this->len + other.GetLen();
+	int old_len = this->len;
+	this->resize(new_len);
+	for (int i = 0; i < other.GetLen(); i++) {
+		this->mass_char[i+old_len] = static_cast<T>(other.GetCurrentSymbol(i));
+	}
+	return *this;
+}
+
+template <typename T>
+void String<T> ::resize(int new_len) {
+	T* temp_array = new T[new_len];
+	for (int i = 0; i < this->len; i++) {
+		temp_array[i] = this->mass_char[i];
+	}
+	delete[] this->mass_char;
+	this->mass_char = new T[new_len];
+	for (int i = 0; i < this->len; i++) {
+		this->mass_char[i] = temp_array[i];
+	}
+	this->len = new_len;
+}
 
 /*template<typename T>
 template<typename U>

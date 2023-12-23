@@ -6,10 +6,8 @@ int main(){
     a.OutPut();
     String<int> b(102, 5);
     b.OutPut();
-    String<int> c(5, 12);
-    c.OutPut();
-
-    c.Clear_String();
+    String<int> c(int(), 12);
+    c += a;
     c.OutPut();
 
 
