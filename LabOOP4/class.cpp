@@ -42,7 +42,7 @@ String<T> :: ~String() { // Деструктор
 	this->len = 0;
 }
 template <typename T>
-void String<T> ::OutPut() { // Вивід
+void String<T> :: OutPut() const{ // Вивід
 	if (this->isEmpty()) {
 		cout << "The string is empty";
 	}
@@ -62,7 +62,7 @@ int String<T> :: GetLen() const { // Отримання довжини строки
 	return this->len;
 }
 template <typename T>
-bool String<T> ::isEmpty() {
+bool String<T> :: isEmpty() const{
 	bool status = true;
 	for (int i = 0; i < this->len; i++) {
 		if (this->mass_char[i] != T()) {

@@ -21,10 +21,8 @@ public:
 
     //template <typename U>
     //U ConvertStringType(int new_len);
-    void OutPut();
-    bool isEmpty();
-    int GetLen();
-    T GetCurrentSymbol(int pos);
+    bool isEmpty() const;
+
 };
 #include "class.cpp"
 #endif //class_h
