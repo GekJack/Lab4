@@ -1,4 +1,5 @@
 #include <iostream>
+#include "class.h"
 using namespace std;
 int main(){
     cout << "Laba 4" << endl;
@@ -8,7 +9,6 @@ int main(){
     int b = a;
     int c = a + b;
     // huy
-
-
+    String<char> obj;
     return 0;
 }

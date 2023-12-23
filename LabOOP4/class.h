@@ -12,7 +12,6 @@ public:
 
     String(const String&& other);
     ~String();
-
 };
 #include "class.cpp"
 #endif //class_h
