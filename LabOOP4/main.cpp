@@ -10,6 +10,5 @@ int main(){
     int c = a + b;
     // huy
     String<char> obj;
-
     return 0;
 }
