@@ -17,6 +17,7 @@ String<T> :: ~String() { // Деструктор
 	}
 	this->len = 0;
 }
+
 template <typename T>
 String<T> :: String(T value, int len) { // Конструктор одного значення
 	this->mass_char = new T[len];
@@ -33,4 +34,8 @@ String<T> :: String() { // Конструктор за замовченням
 		mass_char[i] = 'a';
 	}
 }
+
+
+
+
 #endif //class_cpp

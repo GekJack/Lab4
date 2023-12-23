@@ -1,6 +1,9 @@
 #include <iostream>
 #include "class.h"
-using namespace std;
+
 int main(){
+    String<char> a('d', 5);
+    
+
     return 0;
 }
