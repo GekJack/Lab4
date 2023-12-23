@@ -1,7 +1,13 @@
 #pragma once
 #include <iostream>
+template <typename T>
 class String {
-    String(); // Конструктор за замовченням
+
+private:
+    T* mass_char;
+    int len;
+public:
+    String();
     ~String();
 
 };
