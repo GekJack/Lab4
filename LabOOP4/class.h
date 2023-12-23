@@ -24,8 +24,8 @@ public:
     //U ConvertStringType(int new_len);
     bool isEmpty() const;
 
-    void OutPut();
-    bool isEmpty();
+    void OutPut() const;
+    bool isEmpty() const ;
     int GetLen() const;
     T GetCurrentSymbol(int pos) const;
 
