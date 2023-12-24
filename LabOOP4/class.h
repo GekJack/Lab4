@@ -11,9 +11,12 @@ private:
 public:
     String();
     String(T value, int len);
+    String(const String<T>& other);
     template <typename U>
     String(const String<U>& other);
     String(const String<T>&& other);
+    //template <typename U>
+    //String(const String<U>&& other);
     ~String();
 
     //template <typename U>
@@ -28,6 +31,9 @@ public:
 
     template <typename U>
     String<T>& operator+=(const String<U>& other);
+    T operator[](const int index) const;
+    T& operator[](const int index);
+    String<T>& operator=(const String& other);
 };
 #include "class.cpp"
 #endif //class_h

@@ -3,6 +3,19 @@
 #include "class.h"
 
 template <typename T>
+String<T>& String<T> :: operator=(const String& other) {
+	if (this != &other) {
+		delete[] mass_char;
+		this->len = other.len;
+		mass_char = new T[len];
+		for (int i = 0; i < len; i++) {
+			mass_char[i] = other.mass_char[i];
+		}
+	}
+	return *this;
+}
+
+template <typename T>
 String<T> :: String() { // Конструктор за замовченням
 	this->len = 10;
 	this->mass_char = new T[len];
@@ -27,6 +40,16 @@ String<T> :: String(const String<U>& other){ // Конструктор копирования
 		this->mass_char[i] = static_cast<T>(other.GetCurrentSymbol(i));
 	}
 }
+
+template <typename T>
+String<T> :: String(const String<T>& other) { // Конструктор копирования
+	this->mass_char = new T[other.GetLen()];
+	this->len = other.GetLen();
+	for (int i = 0; i < this->len; i++) {
+		this->mass_char[i] = other.GetCurrentSymbol(i);
+	}
+}
+
 template <typename T>
 String<T> :: String(const String<T>&& other) : //Конструктор переміщення
 	mass_char(other.mass_char), len(other.len)
@@ -34,6 +57,16 @@ String<T> :: String(const String<T>&& other) : //Конструктор переміщення
 	other.len = 0;
 	other.mass_char = nullptr;
 }
+
+//template <typename T>
+//template <typename U>
+//String<T> ::String(const String<U>&& other) : //Конструктор переміщення
+//	mass_char(other.mass_char), len(other.len)
+//{
+//	other.len = 0;
+//	other.mass_char = nullptr;
+//}
+
 template <typename T>
 String<T> :: ~String() { // Деструктор
 	if (this->mass_char) {
@@ -78,11 +111,13 @@ bool String<T> :: isEmpty() const{
 template <typename T>
 template <typename U>
 String<T>& String<T> :: operator+=(const String<U>& other) {
-	int new_len = this->len + other.GetLen();
-	int old_len = this->len;
-	this->resize(new_len);
-	for (int i = 0; i < other.GetLen(); i++) {
-		this->mass_char[i+old_len] = static_cast<T>(other.GetCurrentSymbol(i));
+	if (!other.isEmpty()) {
+		int new_len = this->len + other.GetLen();
+		int old_len = this->len;
+		this->resize(new_len);
+		for (int i = 0; i < other.GetLen(); i++) {
+			this->mass_char[i + old_len] = static_cast<T>(other.GetCurrentSymbol(i));
+		}
 	}
 	return *this;
 }
@@ -121,7 +156,17 @@ void String<T> :: Clear_String() {
 	if (this->mass_char) {
 		delete[] this->mass_char;
 		this->mass_char = nullptr;
+		this->len = 0;
 	}
 }
 
+template<typename T>
+T String<T> :: operator[](const int index) const{
+	return this->mass_char[index];
+}
+
+template<typename T>
+T& String<T> :: operator[](const int index) {
+	return this->mass_char[index];
+}
 #endif //class_cpp
