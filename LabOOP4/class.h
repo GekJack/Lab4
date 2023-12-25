@@ -14,7 +14,7 @@ public:
     String(const String<T>& other);
     template <typename U>
     String(const String<U>& other);
-    String(const String<T>&& other);
+    String(String<T>&& other);
     //template <typename U>
     //String(const String<U>&& other);
     ~String();
@@ -34,6 +34,14 @@ public:
     T operator[](const int index) const;
     T& operator[](const int index);
     String<T>& operator=(const String& other);
+    String<T> operator*(const int value) const;
+    /*friend String<T> operator*(int value, const String<T>& right);*/
+    bool operator==(const String& other);
+    bool operator!=(const String& other);
+    bool operator<(const String& other);
+    bool operator>(const String& other);
+    bool operator<=(const String& other);
+    bool operator>=(const String& other);
 };
 #include "class.cpp"
 #endif //class_h

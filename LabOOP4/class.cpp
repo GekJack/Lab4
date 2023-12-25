@@ -51,7 +51,7 @@ String<T> :: String(const String<T>& other) { // Конструктор копирования
 }
 
 template <typename T>
-String<T> :: String(const String<T>&& other) : //Конструктор переміщення
+String<T> :: String(String<T>&& other) : //Конструктор переміщення
 	mass_char(other.mass_char), len(other.len)
 {
 	other.len = 0;
@@ -169,4 +169,119 @@ template<typename T>
 T& String<T> :: operator[](const int index) {
 	return this->mass_char[index];
 }
+
+template <typename T>
+String<T> String<T> :: operator*(const int value) const{
+	if (value <= 0) {
+		return String(T(), this->len);
+	}
+	String<T> dop;
+	int j = 0;
+	dop.resize(this->len * value);
+	for (int i = 0; i < this->len * value; i++) {
+		dop[i] = this->mass_char[j];
+		j++;
+		if (j == this->len) {
+			j = 0;
+		}
+	}
+	return dop;
+}
+
+
+
+//template <typename T>
+//String<T> operator*(int value, const String<T>& right) {
+//	String<T> dop;
+//	int j = 0;
+//	dop.resize(right.len * value);
+//	for (int i = 0; i < right.len * value; i++) {
+//		dop[i] = right[j];
+//		j++;
+//		if (j == right.len) {
+//			j = 0;
+//		}
+//	}
+//	return dop;
+//}
+
+
+template <typename T>
+
+bool String<T> :: operator==(const String& other) {
+	if (this->len != other.len) {
+		return false;
+	}
+	for (int i = 0; i < this->len; i++) {
+		if (this->mass_char[i] != other[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+template <typename T>
+bool String<T> :: operator!=(const String& other) {
+	for (int i = 0; i < this->len; i++) {
+		if (this->mass_char[i] != other[i]) {
+			return true;
+		}
+	}
+		return false;
+}
+
+template <typename T>
+bool String<T> :: operator<(const String& other) {
+	if (*(this) == other) {
+		return false;
+	}
+	for (int i = 0; i < this->len; i++) {
+		if (this->mass_char[i] < other[i]) {
+			return true;
+		}
+	}
+	if (this->len < other.len) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+template <typename T>
+bool String<T> :: operator>(const String& other) {
+	if (*(this) == other) {
+		return false;
+	}
+	for (int i = 0; i < this->len; i++) {
+		if (this->mass_char[i] > other[i]) {
+			return true;
+		}
+	}
+	if (this->len > other.len) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+template <typename T>
+bool String<T> :: operator>=(const String& other) {
+	if ((*(this) == other) || (*(this) > other)){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+template <typename T>
+bool String<T> :: operator<=(const String& other) {
+	if ((*(this) == other) || (*(this) < other)){
+		return true;
+	} else {
+		return false;
+	}
+}
+
 #endif //class_cpp
