@@ -16,6 +16,19 @@ String<T>& String<T> :: operator=(const String& other) {
 }
 
 template <typename T>
+String<T> :: String(T* arr) {
+	int counter = 0;
+	while (arr[counter] != T()) {
+		counter++;
+	}
+	this->len = counter;
+	this->mass_char = new T[len];
+	for (int i = 0; i < this->len; i++) {
+		this->mass_char[i] = arr[i];
+	}
+}
+
+template <typename T>
 String<T> :: String() { // Конструктор за замовченням
 	this->len = 10;
 	this->mass_char = new T[len];

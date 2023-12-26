@@ -15,6 +15,7 @@ public:
     template <typename U>
     String(const String<U>& other);
     String(String<T>&& other);
+    String(T* arr);
     //template <typename U>
     //String(const String<U>&& other);
     ~String();
