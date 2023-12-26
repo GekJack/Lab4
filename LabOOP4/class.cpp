@@ -21,7 +21,7 @@ String<T> :: String(T* arr) {
 	while (arr[counter] != T()) {
 		counter++;
 	}
-	this->len = counter;
+	this->len = counter + 1;
 	this->mass_char = new T[len];
 	for (int i = 0; i < this->len; i++) {
 		this->mass_char[i] = arr[i];
