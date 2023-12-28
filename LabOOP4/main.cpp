@@ -1,7 +1,6 @@
 #include <iostream>
 #include "class.h"
 
-int main(){
-        
+int main() {
     return 0;
 }

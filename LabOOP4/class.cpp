@@ -30,19 +30,21 @@ String<T> :: String(T* arr) {
 
 template <typename T>
 String<T> :: String() { // Конструктор за замовченням
-	this->len = 10;
+	this->len = 11;
 	this->mass_char = new T[len];
-	for (int i = 0; i < this->len; i++) {
+	for (int i = 0; i < this->len - 1; i++) {
 		mass_char[i] = 'a';
 	}
+	this->mass_char[this->len - 1] = T();
 }
 template <typename T>
 String<T> :: String(T value, int len) { // Конструктор одного значення
-	this->len = len;
-	this->mass_char = new T[len];
+	this->len = len + 1;
+	this->mass_char = new T[this->len];
 	for (int i = 0; i < len; i++) {
 		this->mass_char[i] = value;
 	}
+	this->mass_char[this->len - 1] = T();
 }
 template <typename T>
 template <typename U>
@@ -91,10 +93,10 @@ String<T> :: ~String() { // Деструктор
 template <typename T>
 void String<T> :: OutPut() const{ // Вивід
 	if (this->isEmpty()) {
-		cout << "The string is empty";
+		cout << "The string is empty" << endl;
 	}
 	else {
-		for (int i = 0; i < this->len; i++) {
+		for (int i = 0; i < this->len - 1; i++) {
 			cout << mass_char[i];
 		}
 		cout << endl;
@@ -200,23 +202,6 @@ String<T> String<T> :: operator*(const int value) const{
 	}
 	return dop;
 }
-
-
-
-//template <typename T>
-//String<T> operator*(int value, const String<T>& right) {
-//	String<T> dop;
-//	int j = 0;
-//	dop.resize(right.len * value);
-//	for (int i = 0; i < right.len * value; i++) {
-//		dop[i] = right[j];
-//		j++;
-//		if (j == right.len) {
-//			j = 0;
-//		}
-//	}
-//	return dop;
-//}
 
 
 template <typename T>

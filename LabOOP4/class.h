@@ -10,7 +10,7 @@ private:
     void resize(int new_len);
 public:
     String();
-    String(T value, int len);
+    String(T value, int len); 
     String(const String<T>& other);
     template <typename U>
     String(const String<U>& other);
@@ -36,7 +36,6 @@ public:
     T& operator[](const int index);
     String<T>& operator=(const String& other);
     String<T> operator*(const int value) const;
-    /*friend String<T> operator*(int value, const String<T>& right);*/
     bool operator==(const String& other);
     bool operator!=(const String& other);
     bool operator<(const String& other);
