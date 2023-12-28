@@ -7,8 +7,7 @@ class String {
 private:
     T* mass_char;
     int len;
-    void resize(int new_len);
-    
+    void resize(int new_len, int old_len);
 public:
     String();
     String(T value, int len); 

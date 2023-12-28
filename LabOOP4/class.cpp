@@ -181,7 +181,13 @@ void String<T> :: OutPut() const{ // Вивід
 }
 template <typename T> 
 T String<T> :: GetCurrentSymbol(int pos) const { // Отримання символа за його позицією в строці
-	return this->mass_char[pos];
+	if (pos >= this->len || pos < 0 ) {
+		cout << "Error: incorrect length" << endl;
+		return T();
+	}
+	else {
+		return this->mass_char[pos];
+	}
 }
 template <typename T>
 int String<T> :: GetLen() const { // Отримання довжини строки
@@ -204,19 +210,43 @@ template <typename T>
 template <typename U>
 String<T>& String<T> :: operator+=(const String<U>& other) {
 	if (!other.isEmpty()) {
-		int new_len = this->len + other.GetLen();
-		int old_len = this->len-1;
-		this->resize(new_len);
-		for (int i = 0; i < other.GetLen()+1; i++) {
-			this->mass_char[i + old_len] = static_cast<T>(other.GetCurrentSymbol(i));
+		int while_choose = 1, side;
+		while (while_choose != 0) {
+			cout << "Which side we should add the string?(Left(1) or Right(2)?)" << endl;
+			cout << "Write the nubmer" << endl;
+			cin >> side;
+			system("cls");
+			if (side != 1 && side != 2) {
+				cout << "Write correct side-code please" << endl;
+			}
+			else {
+				while_choose = 0;
+			}
 		}
-		this->mass_char[this->GetLen()] = T();
+		if (side == 2) {
+			int new_len = this->len + other.GetLen();
+			int old_len = this->len - 1;
+			this->resize(new_len, 0 );
+			for (int i = 0; i < other.GetLen() + 1; i++) {
+				this->mass_char[i + old_len] = static_cast<T>(other.GetCurrentSymbol(i));
+			}
+			this->mass_char[this->GetLen()] = T();
+		}
+		if (side == 1) {
+			int new_len = this->len + other.GetLen();
+			int old_len = this->len;
+			this->resize(new_len, old_len);
+			for (int i = 0; i < other.GetLen(); i++) {
+				this->mass_char[i] = static_cast<T>(other.GetCurrentSymbol(i));
+			}
+			this->mass_char[this->len - 1] = T();
+		}
 	}
 	return *this;
 }
 
 template <typename T>
-void String<T> :: resize(int new_len) {
+void String<T> :: resize(int new_len, int old_len) {
 	T* temp_array = new T[new_len];
 	for (int i = 0; i < this->len; i++) {
 		temp_array[i] = this->mass_char[i];
@@ -224,8 +254,8 @@ void String<T> :: resize(int new_len) {
 	delete[] this->mass_char;
 	this->mass_char = new T[new_len];
 	for (int i = 0; i < this->len; i++) {
-		this->mass_char[i] = temp_array[i];
-	}
+		this->mass_char[i + old_len] = temp_array[i];
+	}	
 	this->len = new_len;
 }
 
