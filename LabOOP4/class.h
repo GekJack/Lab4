@@ -16,6 +16,8 @@ public:
     String(const String<U>& other);
     String(String<T>&& other);
     String(T* arr);
+    String(T* arr, int len);
+    String(T* first, T* second);
     //template <typename U>
     //String(const String<U>&& other);
     ~String();

@@ -29,6 +29,43 @@ String<T> :: String(T* arr) {
 }
 
 template <typename T>
+String<T> :: String(T* arr, int len) {
+	this->len = len;
+	this->mass_char = new T[this->len];
+	for (int i = 0; i < len; i++) {
+		this->mass_char[i] = arr[i];
+	}
+}
+
+template <typename T>
+String<T> ::String(T* first, T* second) {
+	if (first > second) {
+		cout << "error: first > second, volunteered default constructor" << endl;
+		this->len = 10;
+		this->mass_char = new T[len];
+		for (int i = 0; i < this->len; i++) {
+			mass_char[i] = 'a';
+		}
+	} else if(first == second){
+		this->len = 1;
+		this->mass_char = new T[this->len];
+		this->mass_char[0] = T();
+	} else {
+		int counter = 1;
+		int i = 0;
+		while (first + i * sizeof(T) != second) {
+			counter++;
+			i++;
+		}
+		this->len = counter;
+		this->mass_char = new T[this->len];
+		for (int i = 0; i < this->len; i++) {
+			this->mass_char[i] = first[i];
+		}
+	}
+}
+
+template <typename T>
 String<T> :: String() { // Конструктор за замовченням
 	this->len = 10;
 	this->mass_char = new T[len];
