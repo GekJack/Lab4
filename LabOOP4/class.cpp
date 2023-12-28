@@ -21,8 +21,7 @@ String<T> :: String(T* arr) {
 	while (arr[counter] != T()) {
 		counter++;
 	}
-	
-	this->len = counter;
+	this->len = counter + 1;
 	this->mass_char = new T[len];
 	for (int i = 0; i < this->len; i++) {
 		this->mass_char[i] = arr[i];
@@ -30,20 +29,62 @@ String<T> :: String(T* arr) {
 }
 
 template <typename T>
+String<T> :: String(T* arr, int len) {
+	this->len = len + 1;
+	this->mass_char = new T[this->len];
+	for (int i = 0; i < len; i++) {
+		this->mass_char[i] = arr[i];
+	}
+	this->mass_char[this->len - 1] = T();
+}
+
+template <typename T>
+String<T> ::String(T* first, T* second) {
+	if (first > second) {
+		cout << "error: first > second, volunteered default constructor" << endl;
+		this->len = 11;
+		this->mass_char = new T[len];
+		for (int i = 0; i < this->len - 1; i++) {
+			mass_char[i] = 'a';
+		}
+		this->mass_char[this->len - 1] = T();
+	} else if(first == second){
+		this->len = 1;
+		this->mass_char = new T[this->len];
+		this->mass_char[0] = T();
+	} else {
+		int counter = 1;
+		T* i = first;
+		while (i != second){
+			counter++;
+			i++;
+		}
+		this->len = counter+1;
+		this->mass_char = new T[this->len];
+		for (int i = 0; i < this->len-1; i++) {
+			this->mass_char[i] = first[i];
+		}
+		this->mass_char[this->len - 1] = T();
+	}
+}
+
+template <typename T>
 String<T> :: String() { // Конструктор за замовченням
-	this->len = 10;
+	this->len = 11;
 	this->mass_char = new T[len];
-	for (int i = 0; i < this->len; i++) {
+	for (int i = 0; i < this->len - 1; i++) {
 		mass_char[i] = 'a';
 	}
+	this->mass_char[this->len - 1] = T();
 }
 template <typename T>
 String<T> :: String(T value, int len) { // Конструктор одного значення
-	this->len = len;
-	this->mass_char = new T[len];
+	this->len = len + 1;
+	this->mass_char = new T[this->len];
 	for (int i = 0; i < len; i++) {
 		this->mass_char[i] = value;
 	}
+	this->mass_char[this->len - 1] = T();
 }
 template <typename T>
 template <typename U>
@@ -92,10 +133,10 @@ String<T> :: ~String() { // Деструктор
 template <typename T>
 void String<T> :: OutPut() const{ // Вивід
 	if (this->isEmpty()) {
-		cout << "The string is empty";
+		cout << "The string is empty" << endl;
 	}
 	else {
-		for (int i = 0; i < this->len; i++) {
+		for (int i = 0; i < this->len - 1; i++) {
 			cout << mass_char[i];
 		}
 		cout << endl;
@@ -107,7 +148,7 @@ T String<T> :: GetCurrentSymbol(int pos) const { // Отримання символа за його по
 }
 template <typename T>
 int String<T> :: GetLen() const { // Отримання довжини строки
-	return this->len;
+	return this->len - 1;
 }
 template <typename T>
 bool String<T> :: isEmpty() const{
@@ -127,11 +168,12 @@ template <typename U>
 String<T>& String<T> :: operator+=(const String<U>& other) {
 	if (!other.isEmpty()) {
 		int new_len = this->len + other.GetLen();
-		int old_len = this->len;
+		int old_len = this->len-1;
 		this->resize(new_len);
-		for (int i = 0; i < other.GetLen(); i++) {
+		for (int i = 0; i < other.GetLen()+1; i++) {
 			this->mass_char[i + old_len] = static_cast<T>(other.GetCurrentSymbol(i));
 		}
+		this->mass_char[this->GetLen()] = T();
 	}
 	return *this;
 }
@@ -201,23 +243,6 @@ String<T> String<T> :: operator*(const int value) const{
 	}
 	return dop;
 }
-
-
-
-//template <typename T>
-//String<T> operator*(int value, const String<T>& right) {
-//	String<T> dop;
-//	int j = 0;
-//	dop.resize(right.len * value);
-//	for (int i = 0; i < right.len * value; i++) {
-//		dop[i] = right[j];
-//		j++;
-//		if (j == right.len) {
-//			j = 0;
-//		}
-//	}
-//	return dop;
-//}
 
 
 template <typename T>

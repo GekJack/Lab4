@@ -1,18 +1,11 @@
 #include <iostream>
 #include "class.h"
 
-int main(){
-    int arr[5];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = 5;
-
-    }
-//    int counter = sizeof(arr);
-    for (int i = 0; i < 5; i++) {
-       // cout << arr[i] << endl;
-    }
-    String<int> a(arr);
-    cout << a.GetLen() << endl;
+int main() {
+    char mass[5] = {'5','4','3','2','1'};
+    String<char> a(&mass[2], &mass[4]);
+    String<int> b(56, 5);
+    a += b;
     a.OutPut();
     return 0;
 }
