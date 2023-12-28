@@ -30,38 +30,41 @@ String<T> :: String(T* arr) {
 
 template <typename T>
 String<T> :: String(T* arr, int len) {
-	this->len = len;
+	this->len = len + 1;
 	this->mass_char = new T[this->len];
 	for (int i = 0; i < len; i++) {
 		this->mass_char[i] = arr[i];
 	}
+	this->mass_char[this->len - 1] = T();
 }
 
 template <typename T>
 String<T> ::String(T* first, T* second) {
 	if (first > second) {
 		cout << "error: first > second, volunteered default constructor" << endl;
-		this->len = 10;
+		this->len = 11;
 		this->mass_char = new T[len];
-		for (int i = 0; i < this->len; i++) {
+		for (int i = 0; i < this->len - 1; i++) {
 			mass_char[i] = 'a';
 		}
+		this->mass_char[this->len - 1] = T();
 	} else if(first == second){
 		this->len = 1;
 		this->mass_char = new T[this->len];
 		this->mass_char[0] = T();
 	} else {
 		int counter = 1;
-		int i = 0;
-		while (first + i * sizeof(T) != second) {
+		T* i = first;
+		while (i != second){
 			counter++;
 			i++;
 		}
-		this->len = counter;
+		this->len = counter+1;
 		this->mass_char = new T[this->len];
-		for (int i = 0; i < this->len; i++) {
+		for (int i = 0; i < this->len-1; i++) {
 			this->mass_char[i] = first[i];
 		}
+		this->mass_char[this->len - 1] = T();
 	}
 }
 
@@ -145,7 +148,7 @@ T String<T> :: GetCurrentSymbol(int pos) const { // Отримання символа за його по
 }
 template <typename T>
 int String<T> :: GetLen() const { // Отримання довжини строки
-	return this->len;
+	return this->len - 1;
 }
 template <typename T>
 bool String<T> :: isEmpty() const{
@@ -165,11 +168,12 @@ template <typename U>
 String<T>& String<T> :: operator+=(const String<U>& other) {
 	if (!other.isEmpty()) {
 		int new_len = this->len + other.GetLen();
-		int old_len = this->len;
+		int old_len = this->len-1;
 		this->resize(new_len);
-		for (int i = 0; i < other.GetLen(); i++) {
+		for (int i = 0; i < other.GetLen()+1; i++) {
 			this->mass_char[i + old_len] = static_cast<T>(other.GetCurrentSymbol(i));
 		}
+		this->mass_char[this->GetLen()] = T();
 	}
 	return *this;
 }
