@@ -4,8 +4,13 @@
 
 template <typename T>
 String<T>& String<T> :: operator=(const String& other) {
-	if (this != &other) {
+	if (other.isEmpty()) {
+		return *this;
+	}
+	if (this->mass_char) {
 		delete[] mass_char;
+	}
+	if (this != &other) {
 		this->len = other.len;
 		mass_char = new T[len];
 		for (int i = 0; i < len; i++) {
@@ -15,8 +20,41 @@ String<T>& String<T> :: operator=(const String& other) {
 	return *this;
 }
 
+template<typename T>
+String<T>& String<T>::operator=(String&& other)
+{
+	if (other.isEmpty()) {
+		return *this;
+	}
+	if (this->mass_char) {
+		delete[] mass_char;
+	}
+	if (this != &other) {
+		this->len = other.len;
+		this->mass_char = other.mass_char;
+		other.mass_char = nullptr;
+		other.len = 0;
+	}
+	
+	return *this;
+}
 template <typename T>
 String<T> :: String(T* arr) {
+	int counter = 0;
+	while (arr[counter] != T()) {
+		counter++;
+	}
+
+	this->len = counter + 1;
+	this->mass_char = new T[len];
+	for (int i = 0; i < this->len; i++) {
+		this->mass_char[i] = arr[i];
+	}
+}
+template<typename T>
+template<typename U>
+String<T>::String(U* arr)
+{
 	int counter = 0;
 	while (arr[counter] != T()) {
 		counter++;
@@ -24,10 +62,9 @@ String<T> :: String(T* arr) {
 	this->len = counter + 1;
 	this->mass_char = new T[len];
 	for (int i = 0; i < this->len; i++) {
-		this->mass_char[i] = arr[i];
+		this->mass_char[i] = static_cast<T>(arr[i]);
 	}
 }
-
 template <typename T>
 String<T> :: String(T* arr, int len) {
 	this->len = len + 1;
@@ -137,7 +174,7 @@ void String<T> :: OutPut() const{ // Вивід
 	}
 	else {
 		for (int i = 0; i < this->len - 1; i++) {
-			cout << mass_char[i];
+			cout << mass_char[i] << "  ";
 		}
 		cout << endl;
 	}

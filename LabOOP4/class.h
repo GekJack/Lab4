@@ -8,6 +8,7 @@ private:
     T* mass_char;
     int len;
     void resize(int new_len);
+    
 public:
     String();
     String(T value, int len); 
@@ -16,6 +17,8 @@ public:
     String(const String<U>& other);
     String(String<T>&& other);
     String(T* arr);
+    template <typename U>
+    String(U* arr);
     String(T* arr, int len);
     String(T* first, T* second);
     //template <typename U>
@@ -37,6 +40,7 @@ public:
     T operator[](const int index) const;
     T& operator[](const int index);
     String<T>& operator=(const String& other);
+    String<T>& operator=(String&& other);
     String<T> operator*(const int value) const;
     bool operator==(const String& other);
     bool operator!=(const String& other);
