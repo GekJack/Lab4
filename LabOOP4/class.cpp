@@ -189,6 +189,26 @@ T String<T> :: GetCurrentSymbol(int pos) const { // Отримання символа за його по
 		return this->mass_char[pos];
 	}
 }
+template<typename T>
+String<T> String<T>::GetSubstring(int index, int len)
+{
+	if (index + len < this->len && len > 0) {
+		if (this->isEmpty()) {
+			return String<T>();
+		}
+		String<T> Substring(1, len);
+		
+		for (int i = 0; i < len; i++) {
+			Substring[i] = this->mass_char[index + i];
+		}
+		return Substring;	
+	}
+	else {
+		cout << "error: index or len is not correct" << endl;
+	}
+	
+	return String<T>();
+}
 template <typename T>
 int String<T> :: GetLen() const { // Отримання довжини строки
 	return this->len - 1;
@@ -389,5 +409,35 @@ bool String<T> :: operator<=(const String& other) {
 		return false;
 	}
 }
+template <typename T, typename U>
+auto CreateString(U* first, U* second) -> String<decltype(declval<T>() + declval<U>())> {
+	if (first && second) {
+		if (first < second) {
+			int len = (second - first) + 1;
+			String<decltype(declval<T>() + declval<U>())> newString(1, len);
+			for (int i = 0; i < len; i++) {
+				newString[i] = first[i];
+			}	 
+			//newString.OutPut();
+			return newString;
+		} 
+		else {
+			if (first > second) {
+				cout << "error: first > second" << endl;
+				return String<T>();
+			}
+			else {
+				int len = 1;
+				String<decltype(declval<T>() + declval<U>())> newString(1, len);
 
+				for (int i = 0; i < len; i++) {
+					newString[i] = first[i];
+				}
+				return newString;
+			}
+		}
+	}
+	cout << "error: mas is nullptr" << endl;
+	return String<T>();
+}
 #endif //class_cpp

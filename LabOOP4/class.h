@@ -33,6 +33,7 @@ public:
     bool isEmpty() const ;
     int GetLen() const;
     T GetCurrentSymbol(int pos) const;
+    String<T> GetSubstring(int index, int len);
 
     template <typename U>
     String<T>& operator+=(const String<U>& other);
@@ -48,5 +49,7 @@ public:
     bool operator<=(const String& other);
     bool operator>=(const String& other);
 };
+    template <typename T, typename U>
+    auto CreateString(U* first, U* second) -> String<decltype(declval<T>() + declval<U>())>;
 #include "class.cpp"
 #endif //class_h
