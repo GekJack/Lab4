@@ -263,7 +263,7 @@ String<T> String<T> :: operator*(const int value) const{
 	}
 	String<T> dop;
 	int j = 0;
-	dop.resize(this->len * value);
+	dop.resize(this->len * value, 0 );
 	for (int i = 0; i < this->len * value; i++) {
 		dop[i] = this->mass_char[j];
 		j++;
