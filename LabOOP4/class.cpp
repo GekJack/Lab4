@@ -174,7 +174,7 @@ void String<T> :: OutPut() const{ // Вивід
 	}
 	else {
 		for (int i = 0; i < this->len - 1; i++) {
-			cout << mass_char[i] << "  ";
+			cout << mass_char[i];
 		}
 		cout << endl;
 	}
@@ -246,7 +246,7 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 		if (side == 2) {
 			int new_len = this->len + other.GetLen();
 			int old_len = this->len - 1;
-			this->resize(new_len, 0 );
+			this->RowLengthIncrease(new_len, 0);
 			for (int i = 0; i < other.GetLen() + 1; i++) {
 				this->mass_char[i + old_len] = static_cast<T>(other.GetCurrentSymbol(i));
 			}
@@ -254,8 +254,8 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 		}
 		if (side == 1) {
 			int new_len = this->len + other.GetLen();
-			int old_len = this->len;
-			this->resize(new_len, old_len);
+			int old_len = other.GetLen();
+			this->RowLengthIncrease(new_len, old_len);
 			for (int i = 0; i < other.GetLen(); i++) {
 				this->mass_char[i] = static_cast<T>(other.GetCurrentSymbol(i));
 			}
@@ -265,9 +265,10 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 	return *this;
 }
 
+
 template <typename T>
-void String<T> :: resize(int new_len, int old_len) {
-	T* temp_array = new T[new_len];
+void String<T> ::RowLengthIncrease(int new_len, int old_len) {
+	T* temp_array = new T[this->len];
 	for (int i = 0; i < this->len; i++) {
 		temp_array[i] = this->mass_char[i];
 	}
@@ -278,6 +279,7 @@ void String<T> :: resize(int new_len, int old_len) {
 	}	
 	this->len = new_len;
 }
+
 
 /*template<typename T>
 template<typename U>
@@ -318,11 +320,16 @@ String<T> String<T> :: operator*(const int value) const{
 	if (value <= 0) {
 		return String(T(), this->len);
 	}
-	String<T> dop;
+	int new_len = this->GetLen() * value;
+	String<T> dop(T(), new_len);
 	int j = 0;
-	dop.resize(this->len * value, 0 );
-	for (int i = 0; i < this->len * value; i++) {
-		dop[i] = this->mass_char[j];
+	for (int i = 0; i < new_len; i++) {
+		if(this->mass_char[j] != T() && j != this->len - 1){
+			dop[i] = this->mass_char[j];
+		}
+		else {
+			i--;
+		}
 		j++;
 		if (j == this->len) {
 			j = 0;
@@ -439,5 +446,31 @@ auto CreateString(U* first, U* second) -> String<decltype(declval<T>() + declval
 	}
 	cout << "error: mas is nullptr" << endl;
 	return String<T>();
+}
+template <typename T>
+String<T>& String<T>::addChar() {
+	if (is_same_v<T, char>) {
+		char temp;
+		cout << endl << "Write string" << endl;
+		cout << "if you want to stop press ESC" << endl;
+		while (true) {
+				temp = _getch();
+				if (temp == 27) {
+					cout << endl << "---------------------- End ----------------------" << endl;
+					break;
+				}
+				else {
+					this->mass_char[this->len - 1] = temp;
+					this->RowLengthIncrease(this->len + 1, 0);
+					cout << temp;
+				}
+			}
+		this->mass_char[this->len - 1] = '\0';
+		
+	}
+	else {
+		cout << "Doesn't work for not char" << endl;
+	}
+	return *this;
 }
 #endif //class_cpp

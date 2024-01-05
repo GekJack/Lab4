@@ -1,13 +1,15 @@
 #ifndef class_h
 #define class_h
 #include <iostream>
+#include <type_traits>
+#include <conio.h>
 using namespace std;
 template <typename T>
 class String {
 private:
     T* mass_char;
     int len;
-    void resize(int new_len, int old_len);
+    void RowLengthIncrease(int new_len, int old_len);
 public:
     String();
     String(T value, int len); 
@@ -28,7 +30,7 @@ public:
     //U ConvertStringType(int new_len);
 
     void Clear_String();
-    
+    String<T>& addChar();
     void OutPut() const;
     bool isEmpty() const ;
     int GetLen() const;
