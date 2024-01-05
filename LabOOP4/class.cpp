@@ -40,6 +40,9 @@ String<T>& String<T>::operator=(String&& other)
 }
 template <typename T>
 String<T> :: String(T* arr) {
+	if (arr == nullptr || this->IsEmptyStaticArray(arr)) {
+		throw "Error: Array is empty";
+	}
 	int counter = 0;
 	while (arr[counter] != T()) {
 		counter++;
@@ -55,8 +58,11 @@ template<typename T>
 template<typename U>
 String<T>::String(U* arr)
 {
+	if (arr == nullptr || this->IsEmptyStaticArray(arr)) {
+		throw "Error: Array is empty";
+	}
 	int counter = 0;
-	while (arr[counter] != T()) {
+	while (arr[counter] != U()) {
 		counter++;
 	}
 	this->len = counter + 1;
@@ -67,6 +73,12 @@ String<T>::String(U* arr)
 }
 template <typename T>
 String<T> :: String(T* arr, int len) {
+	if (arr == nullptr || this->IsEmptyStaticArray(arr)) {
+		throw "Error: Array is empty";
+	}
+	if (len <= 0 || len > sizeof(arr)/sizeof(arr[0])) {
+		throw "Error: incorrect length";
+	}
 	this->len = len + 1;
 	this->mass_char = new T[this->len];
 	for (int i = 0; i < len; i++) {
@@ -78,13 +90,7 @@ String<T> :: String(T* arr, int len) {
 template <typename T>
 String<T> ::String(T* first, T* second) {
 	if (first > second) {
-		cout << "error: first > second, volunteered default constructor" << endl;
-		this->len = 11;
-		this->mass_char = new T[len];
-		for (int i = 0; i < this->len - 1; i++) {
-			mass_char[i] = 'a';
-		}
-		this->mass_char[this->len - 1] = T();
+		throw "Error: first > second";
 	} else if(first == second){
 		this->len = 1;
 		this->mass_char = new T[this->len];
@@ -129,7 +135,7 @@ String<T> :: String(const String<U>& other){ // Конструктор копирования
 	this->mass_char = new T[other.GetLen()];
 	this->len = other.GetLen();
 	for (int i = 0; i < this->len; i++) {
-		this->mass_char[i] = static_cast<T>(other.GetCurrentSymbol(i));
+		this->mass_char[i] = static_cast<T>(other[i]);
 	}
 }
 
@@ -138,7 +144,7 @@ String<T> :: String(const String<T>& other) { // Конструктор копирования
 	this->mass_char = new T[other.GetLen()];
 	this->len = other.GetLen();
 	for (int i = 0; i < this->len; i++) {
-		this->mass_char[i] = other.GetCurrentSymbol(i);
+		this->mass_char[i] = other[i];
 	}
 }
 
@@ -161,23 +167,13 @@ String<T> :: ~String() { // Деструктор
 template <typename T>
 void String<T> :: OutPut() const{ // Вивід
 	if (this->isEmpty()) {
-		cout << "The string is empty" << endl;
+		throw  "The string is empty";
 	}
 	else {
 		for (int i = 0; i < this->len - 1; i++) {
 			cout << mass_char[i];
 		}
 		cout << endl;
-	}
-}
-template <typename T> 
-T String<T> :: GetCurrentSymbol(int pos) const { // Отримання символа за його позицією в строці
-	if (pos >= this->len || pos < 0 ) {
-		cout << "Error: incorrect length" << endl;
-		return T();
-	}
-	else {
-		return this->mass_char[pos];
 	}
 }
 template<typename T>
@@ -195,7 +191,7 @@ String<T> String<T>::GetSubstring(int index, int len)
 		return Substring;	
 	}
 	else {
-		cout << "error: index or len is not correct" << endl;
+		throw "Error: index or len is not correct";
 	}
 	
 	return String<T>();
@@ -239,7 +235,7 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 			int old_len = this->len - 1;
 			this->RowLengthIncrease(new_len, 0);
 			for (int i = 0; i < other.GetLen() + 1; i++) {
-				this->mass_char[i + old_len] = static_cast<T>(other.GetCurrentSymbol(i));
+				this->mass_char[i + old_len] = static_cast<T>(other[i]);
 			}
 			this->mass_char[this->GetLen()] = T();
 		}
@@ -248,7 +244,7 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 			int old_len = other.GetLen();
 			this->RowLengthIncrease(new_len, old_len);
 			for (int i = 0; i < other.GetLen(); i++) {
-				this->mass_char[i] = static_cast<T>(other.GetCurrentSymbol(i));
+				this->mass_char[i] = static_cast<T>(other[i]);
 			}
 			this->mass_char[this->len - 1] = T();
 		}
@@ -259,6 +255,10 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 
 template <typename T>
 void String<T> ::RowLengthIncrease(int new_len, int old_len) {
+	if (new_len < this->len) {
+		throw "Error: incorrect new len";
+	}
+	if (old_len < 0 || old_len > this->len) throw "Error: incorrect new len";
 	T* temp_array = new T[this->len];
 	for (int i = 0; i < this->len; i++) {
 		temp_array[i] = this->mass_char[i];
@@ -282,17 +282,26 @@ void String<T> :: Clear_String() {
 
 template<typename T>
 T String<T> :: operator[](const int index) const{
+	if (index < 0 || index > this->len) {
+		throw "Error: incorrect index";
+	}
 	return this->mass_char[index];
 }
 
 template<typename T>
 T& String<T> :: operator[](const int index) {
+	if (index < 0 || index > this->len) {
+		throw "Error: incorrect index";
+	}
 	return this->mass_char[index];
 }
 
 template <typename T>
 String<T> String<T> :: operator*(const int value) const{
-	if (value <= 0) {
+	if (value < 0) {
+		throw "Error: incorrect scalar";
+	}
+	if (value == 0) {
 		return String(T(), this->len);
 	}
 	int new_len = this->GetLen() * value;
@@ -315,7 +324,6 @@ String<T> String<T> :: operator*(const int value) const{
 
 
 template <typename T>
-
 bool String<T> :: operator==(const String& other) {
 	if (this->len != other.len) {
 		return false;
@@ -400,12 +408,11 @@ auto CreateString(U* first, U* second) -> String<decltype(declval<T>() + declval
 			for (int i = 0; i < len; i++) {
 				newString[i] = first[i];
 			}	 
-			//newString.OutPut();
 			return newString;
 		} 
 		else {
 			if (first > second) {
-				cout << "error: first > second" << endl;
+				throw "Error: first > second";
 				return String<T>();
 			}
 			else {
@@ -419,7 +426,7 @@ auto CreateString(U* first, U* second) -> String<decltype(declval<T>() + declval
 			}
 		}
 	}
-	cout << "error: mas is nullptr" << endl;
+	throw "Error: array is nullptr";
 	return String<T>();
 }
 template <typename T>
@@ -444,8 +451,20 @@ String<T>& String<T>::addChar() {
 		
 	}
 	else {
-		cout << "Doesn't work for not char" << endl;
+		throw "Error: doesn't work for not char";
 	}
 	return *this;
+}
+template<typename T>
+template <typename U>
+bool String<T>::IsEmptyStaticArray(U* arr)
+{
+	for (size_t i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
+	{
+		if (arr[i] != U()) {
+			return false;
+		}
+	}
+	return true;
 }
 #endif //class_cpp

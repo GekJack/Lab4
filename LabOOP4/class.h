@@ -10,6 +10,8 @@ private:
     T* mass_char;
     int len;
     void RowLengthIncrease(int new_len, int old_len);
+    template <typename U>
+    bool IsEmptyStaticArray(U* arr);
 public:
     String();
     String(T value, int len); 
@@ -28,7 +30,6 @@ public:
     void OutPut() const;
     bool isEmpty() const ;
     int GetLen() const;
-    T GetCurrentSymbol(int pos) const;
     String<T> GetSubstring(int index, int len);
 
     template <typename U>
