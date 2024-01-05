@@ -150,15 +150,6 @@ String<T> :: String(String<T>&& other) : //Конструктор переміщення
 	other.mass_char = nullptr;
 }
 
-//template <typename T>
-//template <typename U>
-//String<T> ::String(const String<U>&& other) : //Конструктор переміщення
-//	mass_char(other.mass_char), len(other.len)
-//{
-//	other.len = 0;
-//	other.mass_char = nullptr;
-//}
-
 template <typename T>
 String<T> :: ~String() { // Деструктор
 	if (this->mass_char) {
@@ -280,22 +271,6 @@ void String<T> ::RowLengthIncrease(int new_len, int old_len) {
 	this->len = new_len;
 }
 
-
-/*template<typename T>
-template<typename U>
-U String<T> :: ConvertStringType(int new_len)
-{
-	if (this->len == new_len) {
-		String<U> New_String('1', new_len);
-		for (int i = 0; i < this->len; i++) {
-			New_String.mass_char[i] = static_cast<U>(this->mass_char[i]);
-		}
-		return New_String;
-	}
-	else {
-		cout << "error new_len != other_len" << endl;
-	}
-}*/
 template<typename T>
 void String<T> :: Clear_String() {
 	if (this->mass_char) {

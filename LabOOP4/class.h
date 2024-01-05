@@ -22,13 +22,7 @@ public:
     String(U* arr);
     String(T* arr, int len);
     String(T* first, T* second);
-    //template <typename U>
-    //String(const String<U>&& other);
     ~String();
-
-    //template <typename U>
-    //U ConvertStringType(int new_len);
-
     void Clear_String();
     String<T>& addChar();
     void OutPut() const;
