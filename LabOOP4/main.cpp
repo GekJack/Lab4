@@ -5,8 +5,8 @@ int main() {
     String<char> b('w', 6);
     a.OutPut();
     b.OutPut();
-    b += a;
-    b.OutPut();
-
+    int arr[5] = { 1, 2, 3, 4, 5 };
+    a = CreateString<int, int>(&arr[0], &arr[4]);
+    a.OutPut();
     return 0;
 }
