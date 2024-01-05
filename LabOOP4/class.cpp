@@ -132,8 +132,8 @@ String<T> :: String(T value, int len) { // Конструктор одного значення
 template <typename T>
 template <typename U>
 String<T> :: String(const String<U>& other){ // Конструктор копирования
-	this->mass_char = new T[other.GetLen()];
-	this->len = other.GetLen();
+	this->mass_char = new T[other.GetLen()+1];
+	this->len = other.GetLen()+1;
 	for (int i = 0; i < this->len; i++) {
 		this->mass_char[i] = static_cast<T>(other[i]);
 	}
@@ -141,8 +141,8 @@ String<T> :: String(const String<U>& other){ // Конструктор копирования
 
 template <typename T>
 String<T> :: String(const String<T>& other) { // Конструктор копирования
-	this->mass_char = new T[other.GetLen()];
-	this->len = other.GetLen();
+	this->mass_char = new T[other.GetLen()+1];
+	this->len = other.GetLen()+1;
 	for (int i = 0; i < this->len; i++) {
 		this->mass_char[i] = other[i];
 	}
@@ -217,20 +217,21 @@ template <typename T>
 template <typename U>
 String<T>& String<T> :: operator+=(const String<U>& other) {
 	if (!other.isEmpty()) {
-		int while_choose = 1, side;
+		int while_choose = 1; 
+		char side;
 		while (while_choose != 0) {
-			cout << "Which side we should add the string?(Left(1) or Right(2)?)" << endl;
-			cout << "Write the nubmer" << endl;
-			cin >> side;
+			cout << "Which side we should add the string?(Left(l) or Right(r)?)" << endl;
+			cout << "Press l or r" << endl;
+			side = _getch();
 			system("cls");
-			if (side != 1 && side != 2) {
+			if (side != 'l' && side != 'r') {
 				cout << "Write correct side-code please" << endl;
 			}
 			else {
 				while_choose = 0;
 			}
 		}
-		if (side == 2) {
+		if (side == 'r') {
 			int new_len = this->len + other.GetLen();
 			int old_len = this->len - 1;
 			this->RowLengthIncrease(new_len, 0);
@@ -239,7 +240,7 @@ String<T>& String<T> :: operator+=(const String<U>& other) {
 			}
 			this->mass_char[this->GetLen()] = T();
 		}
-		if (side == 1) {
+		if (side == 'l') {
 			int new_len = this->len + other.GetLen();
 			int old_len = other.GetLen();
 			this->RowLengthIncrease(new_len, old_len);
@@ -282,7 +283,7 @@ void String<T> :: Clear_String() {
 
 template<typename T>
 T String<T> :: operator[](const int index) const{
-	if (index < 0 || index > this->len) {
+	if (index < 0 || index >= this->len) {
 		throw "Error: incorrect index";
 	}
 	return this->mass_char[index];
@@ -290,7 +291,7 @@ T String<T> :: operator[](const int index) const{
 
 template<typename T>
 T& String<T> :: operator[](const int index) {
-	if (index < 0 || index > this->len) {
+	if (index < 0 || index >= this->len) {
 		throw "Error: incorrect index";
 	}
 	return this->mass_char[index];
@@ -338,12 +339,17 @@ bool String<T> :: operator==(const String& other) {
 
 template <typename T>
 bool String<T> :: operator!=(const String& other) {
-	for (int i = 0; i < this->len; i++) {
-		if (this->mass_char[i] != other[i]) {
-			return true;
+	if (this->len - 1 == other.GetLen()) {
+		for (int i = 0; i < this->len; i++) {
+			if (this->mass_char[i] != other[i]) {
+				return true;
+			}
 		}
 	}
-		return false;
+	else {
+		return true;
+	}
+	return false;
 }
 
 template <typename T>
@@ -351,16 +357,23 @@ bool String<T> :: operator<(const String& other) {
 	if (*(this) == other) {
 		return false;
 	}
-	for (int i = 0; i < this->len; i++) {
-		if (this->mass_char[i] < other[i]) {
-			return true;
+	int length;
+	if (this->len > other.GetLen() ? length = other.GetLen() : length = this->len - 1);
+	for (int i = 0; i < length; i++) {
+		if (this->mass_char[i] != other[i]) {
+			if (this->mass_char[i] > other[i]) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
-	if (this->len < other.len) {
-		return true;
+	if (this->len > other.len) {
+		return false;
 	}
 	else {
-		return false;
+		return true;
 	}
 }
 
@@ -369,9 +382,16 @@ bool String<T> :: operator>(const String& other) {
 	if (*(this) == other) {
 		return false;
 	}
-	for (int i = 0; i < this->len; i++) {
-		if (this->mass_char[i] > other[i]) {
-			return true;
+	int length;
+	if (this->len > other.GetLen() ? length = other.GetLen() : length = this->len - 1);
+	for (int i = 0; i < length; i++) {
+		if (this->mass_char[i] != other[i]) {
+			if (this->mass_char[i] < other[i]) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
 	if (this->len > other.len) {
